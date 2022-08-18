@@ -5,11 +5,12 @@
  * @node_to_add: the new node to add
  * @line_number: line that contains the instruction
  */
-stack_t *head = NULL;
+
 
 void add_to_stack(stack_t **node_to_add, unsigned int line_number)
 {
 	stack_t *tmp;
+    stack_t *head = NULL;
 	(void)line_number;
 
 	if (node_to_add == NULL || *node_to_add == NULL)
