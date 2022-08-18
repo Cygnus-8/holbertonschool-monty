@@ -1,6 +1,5 @@
 #include "monty.h"
 
-stack_t *head = NULL;
 
 /**
  * create_node - create a node
@@ -10,15 +9,15 @@ stack_t *head = NULL;
 
 stack_t *create_node(int n)
 {
-    stack_t *node;
+	stack_t *node;
 
-    node = malloc(sizeof(stack_t));
-    if (node = NULL)
-        error(4);
-    node->next = NULL;
-    node->prev = NULL;
-    node->n = n;
-    return (node);
+	node = malloc(sizeof(stack_t));
+	if (node == NULL)
+		error(4);
+	node->next = NULL;
+	node->prev = NULL;
+	node->n = n;
+	return (node);
 }
 
 /**
@@ -27,15 +26,15 @@ stack_t *create_node(int n)
 
 void free_nodes(void)
 {
-    stack_t *tmp;
+	stack_t *tmp;
 
-    if (head == NULL)
-    return;
+	if (head == NULL)
+		return;
 
-    while (head != NULL)
-    {
-        tmp = head;
-        head = head->next;
-        free(tmp);
-    }
+	while (head != NULL)
+	{
+		tmp = head;
+		head = head->next;
+		free(tmp);
+	}
 }

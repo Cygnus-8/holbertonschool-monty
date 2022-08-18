@@ -8,43 +8,40 @@
 
 void open_file(char *file_name)
 {
-    int check_file;
-    FILE *fd;
+	
+	FILE *fd;
 
-    if (file_name == NULL)
-        error(2, file_name);
-    check_file = access(file_name, R_OK);
-    if (check_file == -1)
-        error(2, file_name);
+	if (file_name == NULL)
+		error(2, file_name);
 
-    fd = fopen(file_name, "r");
+	fd = fopen(file_name, "r");
 
-    if (fd == NULL)
-        error(2, file_name);
-    read_file(fd);
-    fclose(fd);
+	if (fd == NULL)
+		error(2, file_name);
+	read_line(fd);
+	fclose(fd);
 }
 
 /**
- * read_file - Read the file opened previously
+ * read_line - Read the file opened previously
  * @fd: File descriptor stream on the file opened
  */
 
 void read_line(FILE *fd)
 {
-    char *lineptr;
-    size_t *n;
-    int data_mode = 0, line_number;
+	char *lineptr;
+	size_t *n;
+	int data_mode = 0, line_number;
 
-    lineptr = NULL;
-    n = 0;
+	lineptr = NULL;
+	n = 0;
 
-    for (line_number = 1; getline(&lineptr, &n, fd) != EOF; line_number)
-    {
-        data_mode = line_interpreter(lineptr, line_number, data_mode);
-    }
+	for (line_number = 1; getline(&lineptr, &n, fd) != -1; line_number++)
+	{
+		data_mode = line_interpreter(lineptr, line_number, data_mode);
+	}
 
-    free(lineptr);
+	free(lineptr);
 }
 
 /**
@@ -58,25 +55,25 @@ void read_line(FILE *fd)
 
 int line_interpreter(char *lineptr, int line_number, int data_mode)
 {
-    const char *delim;
-    char *opcode;
-    char *value;
+	const char *delim;
+	char *opcode;
+	char *value;
 
-    if (lineptr == NULL)
-        error(4);
+	if (lineptr == NULL)
+		error(4);
 
-    delim = "\n ";
-    opcode = strtok(lineptr, delim);
-    if (opcode == NULL)
-        return (data_mode);
-    value = strtok(NULL, delim);
+	delim = "\n ";
+	opcode = strtok(lineptr, delim);
+	if (opcode == NULL)
+		return (data_mode);
+	value = strtok(NULL, delim);
 
-    if (strcmp(opcode, "queue") == 0)
-        return (1);
-    if (strcmp(opcode, "stack") == 0)
-        return (0);
-    search_func(opcode, value, line_number, data_mode);
-    return (data_mode);
+	if (strcmp(opcode, "queue") == 0)
+		return (1);
+	if (strcmp(opcode, "stack") == 0)
+		return (0);
+	search_func(opcode, value, line_number, data_mode);
+	return (data_mode);
 }
 
 /**
@@ -89,23 +86,23 @@ int line_interpreter(char *lineptr, int line_number, int data_mode)
 
 void search_func(char *opcode, char *value, int line_number, int data_mode)
 {
-    int k;
-    int debug;
-    instruction_t func_list[] = {
-        {"push", add_to_stack},
-        {"pall", print_stack},
-        {NULL, NULL}};
+	int k;
+	int debug;
+	instruction_t func_list[] = {
+		{"push", add_to_stack},
+		{"pall", print_stack},
+		{NULL, NULL}};
 
-    for (debug = 1, k = 0; func_list[k].opcode != NULL; k++)
-    {
-        if (strcmp(opcode, func_list[k].opcode) == 0)
-        {
-            exec_fun(func_list[k].f, opcode, value, line_number, data_mode);
-            debug = 0;
-        }
-    }
-    if (debug == 1)
-        error(3, line_number, opcode);
+	for (debug = 1, k = 0; func_list[k].opcode != NULL; k++)
+	{
+		if (strcmp(opcode, func_list[k].opcode) == 0)
+		{
+			exec_fun(func_list[k].f, opcode, value, line_number, data_mode);
+			debug = 0;
+		}
+	}
+	if (debug == 1)
+		error(3, line_number, opcode);
 }
 
 /**
@@ -113,35 +110,35 @@ void search_func(char *opcode, char *value, int line_number, int data_mode)
  * @f: pointer to the function that we have to perform
  * @opcode: the string of operation code
  * @value: the value to apply on the function
- * @line_number: the line that contains the instruction
+ * @ln: the line that contains the instruction
  * @data_mode: the implementation mode to perform
  */
 
-void exec_fun(opcode_func f, char *opcode, char *value, int line_number, int data_mode)
+void exec_fun(void (*f), char *opcode, char *value, int ln, int data_mode)
 {
-    stack_t *node;
-    int P = 1;
-    int k;
+	stack_t *node;
+	int P = 1;
+	int k;
 
-    if (strcmp(opcode, "push") == 0)
-    {
-        if (value != NULL && value[0] == '-')
-        {
-            value = value + 1;
-            P = -1;
-        }
-        if (value == NULL)
-            error(5, line_number);
+	if (strcmp(opcode, "push") == 0)
+	{
+		if (value != NULL && value[0] == '-')
+		{
+			value = value + 1;
+			P = -1;
+		}
+		if (value == NULL)
+			error(5, ln);
 
-        for (k = 0; value[k] != '\0'; k++)
-        {
-            if (isdigit(value[k]) == 0)
-                error(5, line_number);
-        }
-        node = create_node(atoi(value) * P);
-        if (data_mode == 0)
-            f(&node, line_number);
-    }
-    else
-        f(&head, line_number);
+		for (k = 0; value[k] != '\0'; k++)
+		{
+			if (isdigit(value[k]) == 0)
+				error(5, ln);
+		}
+		node = create_node(atoi(value) * P);
+		if (data_mode == 0)
+			f(&node, ln);
+	}
+	else
+		f(&head, ln);
 }

@@ -1,5 +1,6 @@
 #ifndef MONTY_H
 #define MONTY_H
+#define  _GNU_SOURCE
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -15,7 +16,7 @@ void read_line(FILE *fd);
 int line_interpreter(char *lineptr, int line_number, int data_mode);
 void error(int error_code, ...);
 void search_func(char *opcode, char *value, int line_number, int data_mode);
-void exec_fun(opcode_func f, char *opcode, char *value, int line_number, int data_mode);
+void exec_fun(void (*f), char *opcode, char *value, int ln, int data_mode);
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -51,7 +52,6 @@ extern stack_t *head;
 stack_t *create_node(int n);
 void free_nodes(void);
 
-void add_to_stack(stack_t **node_to_add, __attribute__((unused))unsigned int line_number);
-void print_stack(stack_t stack, unsigned int line_number);
-typedef void (*opcode_func)(stack_t **, unsigned int);
+void add_to_stack(stack_t **node_to_add, unsigned int line_number);
+void print_stack(stack_t **stack, unsigned int line_number);
 #endif
