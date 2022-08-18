@@ -10,7 +10,6 @@
 void add_to_stack(stack_t **node_to_add, unsigned int line_number)
 {
 	stack_t *tmp;
-    stack_t *head = NULL;
 	(void)line_number;
 
 
