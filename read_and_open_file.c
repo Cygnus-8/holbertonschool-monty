@@ -8,7 +8,6 @@
 
 void open_file(char *file_name)
 {
-	
 	FILE *fd;
 
 	if (file_name == NULL)
