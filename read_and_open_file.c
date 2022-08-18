@@ -90,6 +90,9 @@ void search_func(char *opcode, char *value, int line_number, int data_mode)
 	instruction_t func_list[] = {
 		{"push", add_to_stack},
 		{"pall", print_stack},
+		{"nop", nop},
+		{"swap", swap_nodes},
+		{"add", add_nodes},
 		{"pint", pint_func},
 		{"pop", pop_func},
 		{NULL, NULL}};
