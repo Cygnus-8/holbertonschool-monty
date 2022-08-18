@@ -96,3 +96,39 @@ void more_error(int error_code, ...)
 	free_nodes();
 	exit(EXIT_FAILURE);
 }
+
+/**
+ * more_more_error - Print an error message according
+ * to circumstance
+ * @error_code: the error code are:
+ * (1) ~> If the stack contains less than two elements
+ * (2) ~> If the stack contains less than two elements
+ */
+
+void more_more_error(int error_code, ...)
+{
+	va_list args;
+
+	va_start(args, error_code);
+
+	switch (error_code)
+	{
+	case 1:
+		fprintf(stderr, "L%d: can't sub, stack too short\n", va_arg(args, int));
+		break;
+	case 2:
+		fprintf(stderr, "L%d: can't div, stack too short\n", va_arg(args, int));
+		break;
+	case 3:
+		fprintf(stderr, "L%d: can't mul, stack too short\n", va_arg(args, int));
+		break;
+	case 4:
+		fprintf(stderr, "L%d: division by zero\n", va_arg(args, int));
+		break;
+	default:
+		break;
+	}
+	va_end(args);
+	free_nodes();
+	exit(EXIT_FAILURE);
+}

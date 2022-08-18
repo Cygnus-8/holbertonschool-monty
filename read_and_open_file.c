@@ -95,6 +95,9 @@ void search_func(char *opcode, char *value, int line_number, int data_mode)
 		{"add", add_nodes},
 		{"pint", pint_func},
 		{"pop", pop_func},
+		{"sub", sub_func},
+		{"div", div_func},
+		{"mul", mul_func},
 		{"mod", mod_nodes},
 		{"pchar", print_char},
 		{NULL, NULL}};

@@ -17,6 +17,7 @@ int line_interpreter(char *lineptr, int line_number, int data_mode);
 void search_func(char *opcode, char *value, int line_number, int data_mode);
 void exec_fun(void (*f)(), char *opcode, char *value, int ln, int data_mode);
 
+void more_more_error(int error_code, ...);
 void more_error(int error_code, ...);
 void error(int error_code, ...);
 
@@ -61,6 +62,9 @@ void pop_func(stack_t **last, unsigned int line_number);
 void swap_nodes(stack_t **stack, unsigned int line_number);
 void add_nodes(stack_t **stack, unsigned int line_number);
 void nop(stack_t **stack, unsigned int line_number);
+void sub_func(stack_t **stack, unsigned int line_number);
+void div_func(stack_t **stack, unsigned int line_number);
+void mul_func(stack_t **stack, unsigned int line_number);
 void mod_nodes(stack_t **stack, unsigned int line_number);
 void print_char(stack_t **stack, unsigned int line_number);
 #endif
