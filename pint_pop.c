@@ -66,7 +66,7 @@ void div_func(stack_t **stack, unsigned int line_number)
 	if (stack == NULL || *stack == NULL || (*stack)->next == NULL)
 		more_more_error(2, line_number);
 
-	if (stack == 0 || *stack == 0 || (*stack)->next == 0)
+	if ((*stack)->n == 0)
 		more_more_error(4, line_number);
 
 	(*stack) = (*stack)->next;
