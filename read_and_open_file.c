@@ -30,7 +30,7 @@ void open_file(char *file_name)
 void read_line(FILE *fd)
 {
 	char *lineptr;
-	size_t *n;
+	size_t n;
 	int data_mode = 0, line_number;
 
 	lineptr = NULL;
@@ -114,7 +114,7 @@ void search_func(char *opcode, char *value, int line_number, int data_mode)
  * @data_mode: the implementation mode to perform
  */
 
-void exec_fun(void (*f), char *opcode, char *value, int ln, int data_mode)
+void exec_fun(void (*f)(), char *opcode, char *value, int ln, int data_mode)
 {
 	stack_t *node;
 	int P = 1;

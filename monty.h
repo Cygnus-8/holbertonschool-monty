@@ -16,7 +16,7 @@ void read_line(FILE *fd);
 int line_interpreter(char *lineptr, int line_number, int data_mode);
 void error(int error_code, ...);
 void search_func(char *opcode, char *value, int line_number, int data_mode);
-void exec_fun(void (*f), char *opcode, char *value, int ln, int data_mode);
+void exec_fun(void (*f)(), char *opcode, char *value, int ln, int data_mode);
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
