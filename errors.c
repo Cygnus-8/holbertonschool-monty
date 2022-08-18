@@ -87,7 +87,7 @@ void more_error(int error_code, ...)
 		fprintf(stderr, "L%d: can't pchar, value out of range\n", va_arg(args, int));
 		break;
 	case 6:
-		fprintf(stderr, "L%d: can't pchar, stack empty", va_arg(args, int));
+		fprintf(stderr, "L%d: can't pchar, stack empty\n", va_arg(args, int));
 		break;
 	default:
 		break;
