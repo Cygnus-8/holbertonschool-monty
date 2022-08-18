@@ -128,7 +128,6 @@ void exec_fun(void (*f)(), char *opcode, char *value, int ln, int data_mode)
 		}
 		if (value == NULL)
 			error(5, ln);
-
 		for (k = 0; value[k] != '\0'; k++)
 		{
 			if (isdigit(value[k]) == 0)
