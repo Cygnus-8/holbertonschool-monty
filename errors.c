@@ -76,6 +76,19 @@ void more_error(int error_code, ...)
 		break;
 	case 2:
 		fprintf(stderr, "L%d: can't add, stack too short\n", va_arg(args, int));
+		break;
+	case 3:
+		fprintf(stderr, "L%d: can't mod, stack too short\n", va_arg(args, int));
+		break;
+	case 4:
+		fprintf(stderr, "L%d: division by zero\n", va_arg(args, int));
+		break;
+	case 5:
+		fprintf(stderr, "L%d: can't pchar, value out of range\n", va_arg(args, int));
+		break;
+	case 6:
+		fprintf(stderr, "L%d: can't pchar, stack empty", va_arg(args, int));
+		break;
 	default:
 		break;
 	}
