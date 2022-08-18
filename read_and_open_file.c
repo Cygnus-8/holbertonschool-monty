@@ -6,7 +6,7 @@
  * Return: fd the file descriptor
  */
 
-FILE *open_file(char *file_name)
+void open_file(char *file_name)
 {
     int check_file;
     FILE *fd;
@@ -21,8 +21,8 @@ FILE *open_file(char *file_name)
 
     if (fd == NULL)
         exit(EXIT_FAILURE);
-
-    return (fd);
+    read_file(fd);
+    fclose(fd);
 }
 
 /**
